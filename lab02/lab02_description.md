@@ -138,14 +138,14 @@ Note that next week we will learn about testbench files with will allow you to h
 for a simulation. This is just a "quick test" process until we learn about testbenches.
 
 ### Setting up a constraints file
-Download the constraints file at https://github.com/cs456s25/labs/blob/main/lab02/PYNQ-Z1_C.xdc 
+Download the constraints file at https://github.com/cs456f26/labs/blob/main/lab02/PYNQ-Z1_C.xdc
 To add the constraints file go to the Sources tab -> Constraints -> constrs_1 then choose +
 Add or create constraints should be selected. Click Next.
 Click on Add Files. Then navigate to where you downloaded the file from above and select it.
 Choose OK and then Finish.
 
 Go back to the Sources tab and open the PYNQ-Z1_C.xdc file. You will need to edit it.
-Uncomment a total of six line. The two with SWITCHES in them and then the four corresponding 
+Uncomment a total of six lines. The two with SWITCHES in them and then the four corresponding 
 to LEDS[0-3]. Save.
 
 ### Get the equipment suitcase from a locker. 
