@@ -14,7 +14,7 @@ Today's lab will be a pdf report submitted to Canvas. The goal is to build a 2-1
 adder to use in a provided top design and make sure it works on the board. You will submit your verilog, a schematic,
 a timing diagram for the mux and adder, a timing diagram for the top design, and two pictures of your board 
 with a person pressing the buttons and showing the correct output on the LEDS for one 
-set of inputs with SWITCH[0] = 0 to choose the adder and another with SWITCH[0] = 1 to 
+set of inputs with SWITCHES[0] = 0 to choose the adder and another with SWITCHES[0] = 1 to 
 choose the and gate. 
 
 Today's lab will be graded as follows:
@@ -36,7 +36,7 @@ Start the project
 2. Start `Vivado`.
 3. Under Quick Start, choose Create Project.
 4. Hit Next to use the assist at creating projects Wizard.
-5. Fill in the project name `lab3_muxadd` and file location.
+5. Fill in the project name `lab03_muxadd` and file location.
 6. Default is rtl project, which is what you want so just click Next.
 7. Don't create a new file yet, just click Next.
 8. Include the constraint file from lab02.
@@ -48,13 +48,13 @@ Start the project
 ## Editing file
 1. In the middle Sources window choose the plus tab.
 2. Choose add or create design sources. Click `Next`.
-4. Create new file by choosing the plus tab again, -> Create File. Name it `mux2_1`.
-5. In the future you can specify parameters to your Module here, but for now lets make sure 
+3. Create new file by choosing the plus tab again, -> Create File. Name it `mux2_1`.
+4. In the future you can specify parameters to your Module here, but for now lets make sure 
    to learn the whole structure of a Verilog program so you can write it yourself. Just click OK.
-6. Click Yes.
-7. Now you will notice in the Sources Window under Design Sources that the `mux2-1` file has been created.
-8. Double click on the file and it will open a window on the right side.
-9. Fill in the team member names under Engineer. As well as the other pertinent information.
+5. Click Yes.
+6. Now you will notice in the Sources Window under Design Sources that the `mux2_1` file has been created.
+7. Double click on the file and it will open a window on the right side.
+8. Fill in the team member names under Engineer. As well as the other pertinent information.
 
 -------
 ## Write Verilog for a 2-1 multiplexor y = d0s' + d1s
@@ -68,12 +68,18 @@ module or_3in (input i1, input i2, input i3, output out);
     or(out, or_out, i3);
 endmodule
 ```
-3. After writing verilog for your multiplexor, create the 'schematic' and verify it is the correct circuit.
+   **Your module header must declare the ports in exactly this order:**
+```verilog
+module mux2_1 (input d0, input d1, input s, output y);
+```
+   The testbench and the top module provided later in this lab connect to your module *by position*, not by
+   name, so a different port order will compile without any error and then produce a wrong timing diagram.
+2. After writing verilog for your multiplexor, create the 'schematic' and verify it is the correct circuit.
    Recall `RTL analysis` -> `Open Elaborated Design`
-5. Edit your verilog if necessary.
-6. Once your verilog and circuit are correct get screen captures for your report.
-7. In a prior lab, force values were used to create a timing diagram that demonstrates the circuit is functioning correctly.
-    Generating these force values over and over is time consuming and has to be repeated each debugging session.
+3. Edit your verilog if necessary.
+4. Once your verilog and circuit are correct get screen captures for your report.
+5. In a prior lab, force values were used to create a timing diagram that demonstrates the circuit is functioning correctly.
+   Generating these force values over and over is time consuming and has to be repeated each debugging session.
    Today we will learn to use a testbench to run a simulation instead.
 
 ## Understanding a testbench ##
@@ -87,10 +93,12 @@ The first unit in the timescale indicates the reference time scale units of dela
 We will generally just use 1 ns for both.
 
 ### Circuit Under Test
-Note the name of the module is the same as the CUT (Circuit Under Test) followed by _tb. This is not required, but is
-convention and highly recommended. Often all signals in the testbench are also followed by _tb, but is omitted here for
-simplicity. Once the timescale is set the command `#`number can be used to have the simulation delay changes for number time
-units.
+Note the name of the testbench module is the name of the CUT (Circuit Under Test) followed by _tb, so the testbench for
+`mux2_1` is named `mux2_1_tb`. This is not required, but is convention and highly recommended. The instance of the circuit
+under test inside the testbench is conventionally named `dut` ("device under test"); do not reuse the testbench module's own
+name for the instance, as that makes the simulation hierarchy confusing to read. Often all signals in the testbench are also
+followed by _tb, but is omitted here for simplicity. Once the timescale is set the command `#`number can be used to have the
+simulation delay changes for number time units.
 ### Registers
 `reg d0;` or "register d0" becomes a variable we can set to hold a signal. Registers are needed for inputs into the
 instantiation of a module being tested.
@@ -99,9 +107,11 @@ instantiation of a module being tested.
 ### Constants
 `localparam` is used to define a constant name for more readable and maintainable code. Now when we delay the simulation for a certain number of time units, and want to change it later, we only have to change it in one place.
 ### Instantiating the circuit under test
-`mux2_1 mux2_1_tb(d0, d1, s, out);` instantiates a mux2_1 module "type" that is named mux2_1_tb much like in Java you 
+`mux2_1 dut(d0, d1, s, out);` instantiates a mux2_1 module "type" that is named dut much like in Java you 
 instantiate an object. In this case instead of passing parameter values to a constructor, you are connecting signals in the 
-test module to the inputs and outputs of the circuit under test.
+test module to the inputs and outputs of the circuit under test. The signals are matched to the ports *by position*: the
+first signal listed connects to the first port in your `mux2_1` header, the second to the second, and so on. This is why
+the port order given above is required.
 ### Setting signals
 Each assignment to a register within the initial block happens in the order given. Though "time" in the simulation does not
 pass until the `#` directive is used.
@@ -111,7 +121,7 @@ pass until the `#` directive is used.
 ```verilog
 `timescale 1 ns/ 1 ns
 
-module mux_tb;
+module mux2_1_tb;
     reg d0;
     reg d1;
     reg s;
@@ -119,10 +129,11 @@ module mux_tb;
           
     localparam time_step = 5;
 
-    mux2_1 mux2_1_tb(d0, d1, s, out);
+    mux2_1 dut(d0, d1, s, out);
     
     initial
         begin   
+            // The comment on each case lists the inputs in the order s d1 d0.
             d0 = 0;
             d1 = 0;
             s = 0;  //000
@@ -150,7 +161,7 @@ module mux_tb;
             d0 =  1; //101
             #time_step;
             $finish();
-    end
+        end
 endmodule
 
 ```
@@ -167,12 +178,19 @@ ___
 ---
 
 ## Full adder behavior 
-A full adder circuit is the basic fundamental circuit that can perform addition or subtraction. It adds together two binary digits and a `carry_in` bit to produce the `sum` and `carry_out` digit. For example, 8 Full adders can be connected in series to make an 8 bit adder that will add two 8-bit numbers in either unsigned binary or two's complement representation.
+A full adder circuit is the basic fundamental circuit used to perform addition (and, with inverted inputs and a
+`carry_in` of 1, subtraction). It adds together two binary digits and a `carry_in` bit to produce the `sum` and `carry_out` digit. For example, 8 Full adders can be connected in series to make an 8 bit adder that will add two 8-bit numbers in either unsigned binary or two's complement representation.
 
 A one-bit full adder will take in 3 one-bit inputs: two 1-bit inputs representing the digits to add and a one 1-bit `carry_in`. The full adder will have two outputs: a 1-bit `sum` and 1-bit `carry_out` that when used in conjunction with other one-bit adders will be the `carry_in` to the next more significant bit of the addition. 
 
 ## Write Verilog for the one-bit full adder
-1. Write structural verilog for the one bit full adder. Name this module `full_adder` and saved to `lab03_muxadd`.
+1. Write structural verilog for the one bit full adder. Name this module `full_adder` and save it in your
+   `lab03_muxadd` project. **Your module header must declare the ports in exactly this order:**
+```verilog
+module full_adder (input a, input b, input c_in, output sum, output c_out);
+```
+   As with the multiplexor, the testbench template below and the provided top module connect to this module by
+   position, so a different port order will simulate cleanly and give wrong results.
 2. Create the adder 'schematic' and verify it is the correct circuit. Recall `RTL analysis` -> `Open Elaborated Design`
 3. Edit your verilog if necessary.
 4. Once your verilog and circuit are correct get screen captures for your report.
@@ -190,7 +208,7 @@ module full_adder_tb;
           
     localparam time_step = 5;
 
-    full_adder full_adder_tb(a, b, c_in, sum, c_out);
+    full_adder dut(a, b, c_in, sum, c_out);
     
     initial
         begin   
@@ -215,6 +233,8 @@ The top module has the inputs and outputs that connect this module to the board 
 constraints file like in lab02. It also "instantiates" a full adder and a multiplexor similar to a testbench so
 that these modules can be connected together. The overall function of this circuit is to reflect the sum of
 the two input buttons if SWITCHES[0] is 0 and to reflect the and of the two input buttons if SWITCHES[0] is 1.
+Note that `LEDS[1]` is driven through a second multiplexor so that the adder's `c_out` is only displayed in adder
+mode; in and mode `LEDS[1]` is forced to 0 and the whole result appears on `LEDS[0]`.
 
 ```verilog
 module lab03_muxadd_top (
@@ -223,10 +243,12 @@ module lab03_muxadd_top (
     output [1:0] LEDS
     );
     wire add_out;
+    wire add_carry;
     wire and_out;
-    full_adder fa(BUTTONS[0], BUTTONS[1], 0, add_out, LEDS[1]);
+    full_adder fa(BUTTONS[0], BUTTONS[1], 1'b0, add_out, add_carry);
     and(and_out, BUTTONS[0], BUTTONS[1]);
     mux2_1 m2_1(add_out, and_out, SWITCHES[0], LEDS[0]);
+    mux2_1 m2_1c(add_carry, 1'b0, SWITCHES[0], LEDS[1]);
     
 endmodule
 
@@ -239,11 +261,11 @@ endmodule
 module lab03_muxadd_top_tb;
     reg [1:0] b;
     reg s0;
-    wire [1:0]leds;
+    wire [1:0] leds;
           
     localparam time_step = 5;
 
-    lab03_muxadd_top lab03_muxadd_top_tb(b, s0, leds);
+    lab03_muxadd_top dut(b, s0, leds);
     
     initial
         begin
@@ -299,6 +321,12 @@ endmodule
 Add the top module and testbench to your project and run a simulation to make sure both are correct.
 Remember you will need to set your top module to be ... well the top. Like when you were switching between
 modules in prior labs.
+
+## Edit the constraints file
+Now that the top module is the top of your design, the hardware ports it uses need pins assigned to them.
+Open `PYNQ-Z1_C.xdc` under Sources -> Constraints and uncomment a total of five lines:
+`SWITCHES[0]`, `BUTTONS[0]`, `BUTTONS[1]`, `LEDS[0]` and `LEDS[1]`. Leave every other line commented out so
+you do not get warnings about ports that your design does not have. Save the file.
 
 ## Programming the board
 1. Plug in the board.
