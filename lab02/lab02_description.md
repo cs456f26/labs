@@ -70,7 +70,7 @@ RTL Analysis -> Open Elaborated Design -> OK
 
 Make sure that your schematic makes sense. It should look something like the picture below.
 
-![andschematic](../lab02/singleand.png)
+![andschematic](singleand.png)
 
 # Continue creating design
 Use the and gate as an example and add an or, xor, and not gate each with the same inputs, but the output
@@ -79,7 +79,7 @@ should be increasing LEDS. Since the not gate has only one input, use the SWITCH
 Again check your schematic. If you are having trouble getting your schematic to update, right-click on 
 Open Elaborated Design and choose Reload.
 
-![allgateschematic](../lab02/allgates.png)
+![allgateschematic](allgates.png)
     
 # Simulation
 First, use the graphical methods of running a simulation, then use the command line (tcl) console.
@@ -118,12 +118,12 @@ and move on to the other possible combinations for a total of four. You might wa
 (tcl) console to do the other examples. The related tcl commands are shown below the picture of an example
 timing diagram.
 
-![timing](../lab02/timing.png)
+![timing](timing.png)
 
 ### TCL commands
 The command line is a bit hard to find. It is at the bottom and looks like this:
 
-![tclconsole](../lab02/tclconsole.png)
+![tclconsole](tclconsole.png)
 
 Below are the corresponding set of commands for the command line. If you copy and paste them into an editor 
 you will not have to retype them each time.
@@ -170,4 +170,4 @@ Once you are done, power off the board before disconnecting it and putting it aw
 ### Final Verilog
 In case you are having trouble: below is the final verilog.
 
-![finalverilog](../lab02/finalverilog.png)
+![finalverilog](finalverilog.png)
