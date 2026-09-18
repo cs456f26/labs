@@ -19,7 +19,8 @@ More specifically:
 
 
 ## Assignment in Verilog
-There are three versions of assignment symbols/uses in Verilog.
+There are three versions of assignment symbols/uses in Verilog. 
+Note that a netname is a wire or connection between parts in a circuit.
 1. `assign {netname} =` outside of an always @ block
 2. `=` within an always @ or initial begin block
 3. `<=` usually used within an always @ block
@@ -27,7 +28,8 @@ There are three versions of assignment symbols/uses in Verilog.
 ### assign =
 `assign =` is used outside of an always @ or initial block to create a `continuous assignment` of the right hand
 side of the equals symbol to the left hand side of the equals symbol. The left hand side must be a reg or a wire net
-and the right hand side must be an expression in verilog that can be synthesized (i.e. it can be implemented as a circuit).
+and the right hand side must be an expression in verilog that can be synthesized (i.e. it can be implemented as a
+circuit).
 Continuous assignment is used to specify combinational circuits where the right hand side is continuously assigned or
 connected to the left hand side anytime there is a change in any signal on the right hand side.
 
