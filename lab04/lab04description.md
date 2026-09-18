@@ -125,7 +125,7 @@ condition, similar to what is done in the code below. Use the code below to crea
 Vivado. 
 
 ```verilog
-module simple_mux(input [1:0] x, output reg y);
+module simple_mux(input [1:0] x, output [1:0] reg y);
     always @(*) begin
         if (x == 2'b10) begin
             y = 2'd3;
