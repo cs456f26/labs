@@ -3,7 +3,9 @@ At this point, we have focussed solely on combinational circuits and using struc
 The goal was to give you a strong foundation in circuit design so that you can understand what the more powerful
 behavioral descriptions will do. The ALU project is still combinational logic (there is no clock or feedback loop). 
 This lab explains when to use different versions of continuous assignment and demonstrates how using behavioral 
-verilog a designer can inadvertently create latches changing the intended design to something completely different. 
+verilog a designer can inadvertently create latches changing the intended design to something completely different.
+
+You will not need the board today.
 
 ## Submission
 Submit a pdf with the following schematics and related timing diagrams as well as answering the questions indicated with appropriate formatting as in past labs. (Names, assignment, section titles etc.)
