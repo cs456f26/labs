@@ -11,10 +11,10 @@ Submit a pdf with the following schematics and related timing diagrams as well a
 More specifically:
 1) (2 pts) schematic and timing diagram for nonblocking assignment in Running an experiment
 2) (2 pts) schematic and timing diagram for blocking assignment in Running an experiment
-3) (2 pts) blocking.v and blocking_tb.v
-4) (0.5 pt) answer question: What is the difference between the two schematics for blocking and non-blocking?
-5) (2 pts) Mux schematic with latch and without
-6) (0.5 pts) answer question: What did you do to remove the latch in Multiplexors with if else
+3) (1 pts) blocking.v and blocking_tb.v
+4) (1.5 pt) answer question: What is the difference between the two schematics for blocking and non-blocking?
+5) (1 pts) Mux schematic with latch and without
+6) (1.5 pts) answer question: What did you do to remove the latch in Multiplexors with if else
 7) (1 pt) Last two schematics
 
 
@@ -145,7 +145,7 @@ Finally, there are verilog control constructs that cannot be synthesized. Specif
 loops cannot be mapped to hardware. Rather they are used to be able to specify multiple instantiations 
 of modules or in a testbench to loop through a series of tests.
 
-The following two code examples with corresponding test benches are other examples for you to explore. Capture the schematic and the timing diagram for each for your lab report if you have time.
+The following two code examples with corresponding test benches are other examples for you to explore. Capture the schematic and the timing diagram for each for your lab report.
 
 ## Always_block_no_clock
 ---
