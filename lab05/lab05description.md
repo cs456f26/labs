@@ -44,7 +44,7 @@ testbenches for each, you are not required for this lab to turn in testbenches.
 
 ## Getting started on this lab
 
-Note that the project name should be `lab06_upcounter`. You may need to look back at previous 
+Note that the project name should be `lab05_upcounter`. You may need to look back at previous 
 labs to recall the details on how to get set up. Start with making the 4-bit register using the code below.
 Notice that this code intentionally creates a latch. For each module you should check the schematic before
 moving forward to make sure that your code has "drawn" the intended circuit.
