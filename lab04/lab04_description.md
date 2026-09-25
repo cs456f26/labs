@@ -149,7 +149,11 @@ module nonblocking_tb;
 endmodule
 
 ```
-Now create a module called `blocking` in `blocking.v` by starting with the code above and making the following changes: a) change the always @ sensitivity list to only include `in` and b) use the `=` blocking assignment. Then create a testbench module called `blocking_tb` in `blocking_tb.v` that no longer uses the clock and instead, just cycles `a`. See how this is different in terms of the schematic and the timing diagram and explain that difference in your write-up for the lab briefly.
+Now create a module called `blocking` in `blocking.v` by starting with the code above and making only one change: replace each `<=` with the `=` blocking assignment.
+Keep the `always @(posedge clk)` sensitivity list and the ports exactly as they are. Then create a testbench module
+called `blocking_tb` in `blocking_tb.v` by copying `nonblocking_tb` and changing it to instantiate `blocking`, so both
+designs see the same inputs. Compare the schematic and the timing diagram with those for `nonblocking` and explain
+that difference in your write-up for the lab briefly.
 
 ## Multiplexors with if-else
 Note that a multiplexor is a combinational circuit. To specify one in behavioral verilog the simplest way is to use an if-else statement or a case statement. It is easy to introduce a latch 
