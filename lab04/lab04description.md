@@ -38,15 +38,16 @@ connected to the left hand side anytime there is a change in any signal on the r
 ### = within an always or initial block
 `=` alone must be within either an always @ block/procedure or within an initial block. In this class initial blocks
 are used pretty much exclusively in a test bench. `=` is known as a `blocking` assignment. It means that the assignments
-will happen sequentially within a block. `=` within an always block specifies a combinational circuit and the
-sensitivity list must include all input signals. Best practice is to use `*` for the sensitivity list. 
+will happen sequentially within a block. `=` within an always block typically specifies a combinational circuit, and
+in that case the sensitivity list must include all input signals. Best practice is to use `*` for the sensitivity list. 
 `=` used within an initial block in a testbench is forcing a signal value for a period of time until it is 
 specifically changed by another `=` assignment.
 
 ### <= with an always block
 `<=` within an always block is a `non-blocking` assignment. It is used to specify a sequential circuit and the 
 sensitivity list should designate an edge of the clock. With non-blocking assignment all of the right hand sides
-of the assignment statements are evaluated and then immediately assigned to the left hand side in parallel.
+of the assignment statements are evaluated first, and only then are the left hand sides updated, all together at the
+end of the time step. This is why the assignments behave as if they happen in parallel.
 
 ## Running an experiment
 Use the verilog code and testbench start below to run an experiment. First use the code below using a non-blocking assignment.
@@ -143,9 +144,10 @@ can be used to specify a multiplexor. For example, here is an expression that im
 `assign out = a > 10 ? 10 : a;` a one-bit multiplexor with inputs `a` and `b` and select `s` would
 be `assign out = s == 0 ? a : b;`
 
-Finally, there are verilog control constructs that cannot be synthesized. Specifically, `for` and `while` 
-loops cannot be mapped to hardware. Rather they are used to be able to specify multiple instantiations 
-of modules or in a testbench to loop through a series of tests.
+Finally, loops in verilog do not become loops in hardware. A `for` loop with fixed bounds can be synthesized, but
+the tool unrolls it into repeated copies of the hardware; `while` loops are generally not synthesizable. Loops are
+mostly used inside `generate` blocks to specify multiple instantiations of modules, or in a testbench to loop
+through a series of tests.
 
 The following two code examples with corresponding test benches are other examples for you to explore. Capture the schematic and the timing diagram for each for your lab report.
 
