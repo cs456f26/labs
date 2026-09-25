@@ -15,7 +15,7 @@ adder to use in a provided top design and make sure it works on the board. You w
 a timing diagram for the mux and adder, a timing diagram for the top design, and two pictures of your board 
 with a person pressing the buttons and showing the correct output on the LEDS for one 
 set of inputs with SWITCHES[0] = 0 to choose the adder and another with SWITCHES[0] = 1 to 
-choose the and gate. 
+choose the AND gate. 
 
 Today's lab will be graded as follows:
 1. (0 pts) Formatting with team names on top right hand side with title of assignment immediately underneath
@@ -239,12 +239,10 @@ module lab03_muxadd_top (
     output [1:0] LEDS
     );
     wire add_out;
-    wire add_carry;
     wire and_out;
-    full_adder fa(BUTTONS[0], BUTTONS[1], 1'b0, add_out, add_carry);
+    full_adder fa(BUTTONS[0], BUTTONS[1], 1'b0, add_out, LEDS[1]);
     and(and_out, BUTTONS[0], BUTTONS[1]);
     mux2_1 m2_1(add_out, and_out, SWITCHES[0], LEDS[0]);
-    mux2_1 m2_1c(add_carry, 1'b0, SWITCHES[0], LEDS[1]);
     
 endmodule
 
