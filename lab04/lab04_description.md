@@ -1,4 +1,4 @@
-# Lab04 Circuits with Behavioral Verilog
+# Lab04 - Circuits with Behavioral Verilog (lab04_behavioral)
 At this point, we have focussed solely on combinational circuits and using structural verilog to create designs.
 The goal was to give you a strong foundation in circuit design so that you can understand what the more powerful
 behavioral descriptions will do. The ALU project is still combinational logic (there is no clock or feedback loop). 
@@ -7,18 +7,49 @@ verilog a designer can inadvertently create latches changing the intended design
 
 You will not need the board today.
 
-## Submission
-Submit a pdf with the following schematics and related timing diagrams as well as answering the questions indicated with appropriate formatting as in past labs. (Names, assignment, section titles etc.)
+Important Notes:
+1. Name your files as specified in the lab directions for best results.
+2. First thing add your name, date, assignment number etc. in the comment block at the beginning.
+   This is the first thing that makes it clear it is your code. Also helps with grading.
+3. Take screenshots as you go and save them to a properly labeled folder.
+4. It may be easier to turn in the verilog as a screen capture also to maintain the legibility and formatting.
+5. This lab does not use the board, so you do not need a constraints file.
 
-More specifically:
-1) (2 pts) schematic and timing diagram for nonblocking assignment in Running an experiment
-2) (2 pts) schematic and timing diagram for blocking assignment in Running an experiment
-3) (1 pts) blocking.v and blocking_tb.v
-4) (1.5 pt) answer question: What is the difference between the two schematics for blocking and non-blocking?
-5) (1 pts) Mux schematic with latch and without
-6) (1.5 pts) answer question: What did you do to remove the latch in Multiplexors with if else
-7) (1 pt) Last two schematics
+# Submission Details
+Today's lab will be a pdf report submitted to Canvas with the following schematics and related timing diagrams as
+well as answers to the questions indicated, with appropriate formatting as in past labs (names, assignment, section
+titles etc.).
 
+Today's lab will be graded as follows:
+1. (2 pts) Schematic and timing diagram for `nonblocking` in Running an experiment.
+2. (2 pts) Schematic and timing diagram for `blocking` in Running an experiment.
+3. (1 pt) `blocking.v` and `blocking_tb.v`.
+4. (1.5 pts) Answer the question: What is the difference between the two schematics for blocking and non-blocking?
+5. (1 pt) `simple_mux` schematic with the latch and without it.
+6. (1.5 pts) Answer the question: What did you do to remove the latch in Multiplexors with if-else?
+7. (1 pt) Schematics and timing diagrams for `always_block_sense` and `always_block`, and a sentence on the
+   difference between the two schematics.
+
+# Learning outcomes
+1. Understanding the three kinds of assignment in Verilog and when to use each.
+2. Seeing how blocking and non-blocking assignment produce different circuits.
+3. Recognizing and removing unintended latches in behavioral Verilog.
+
+## Project creation
+1. Use the `Windows` key to bring up the search bar for `Vivado`.
+2. Start `Vivado`.
+3. Under Quick Start, choose Create Project.
+4. Hit Next to use the assist at creating projects Wizard.
+5. Fill in the project name `lab04_behavioral` and file location.
+6. Default is rtl project, which is what you want so just click Next.
+7. Don't create a new file or add a constraints file, just click Next.
+8. Select the `Board` tab. Under `Name` find PYNQ-Z1.
+9. Select PYNQ-Z1 in table below. Make sure that the Part is xc7z020clg400-1. Choosing the wrong part causes
+   missing package pin errors in later labs when you reuse this setup with the board.
+
+Each module below goes in its own design source file named after the module (for example `nonblocking.v`), and each
+testbench goes in its own simulation source named after the module with `_tb` added (for example `nonblocking_tb.v`).
+View schematics with `RTL Analysis` -> `Open Elaborated Design` and timing diagrams with `Run Simulation`.
 
 ## Assignment in Verilog
 There are three versions of assignment symbols/uses in Verilog. 
@@ -111,19 +142,20 @@ module nonblocking_tb;
                  
             clock = 1;
             a = 1;
-            #time_step;          
+            #time_step;
+            $finish();
         end
     
 endmodule
 
 ```
-Now create a module called blocking by starting with the code above and making the following changes: a) change the always @ sensitivity list to only include `in` and b) use the `=` blocking assignment. Then create a testbench module called  blocking_tb that no longer uses the clock and instead, just cycles `a`. See how this is different in terms of the schematic and the timing diagram and explain that difference in your write-up for the lab briefly.
+Now create a module called `blocking` in `blocking.v` by starting with the code above and making the following changes: a) change the always @ sensitivity list to only include `in` and b) use the `=` blocking assignment. Then create a testbench module called `blocking_tb` in `blocking_tb.v` that no longer uses the clock and instead, just cycles `a`. See how this is different in terms of the schematic and the timing diagram and explain that difference in your write-up for the lab briefly.
 
 ## Multiplexors with if-else
 Note that a multiplexor is a combinational circuit. To specify one in behavioral verilog the simplest way is to use an if-else statement or a case statement. It is easy to introduce a latch 
 unintentionally using these constructs by not assigning a value to a register for every possible 
-condition, similar to what is done in the code below. Use the code below to create a schematic in 
-Vivado. 
+condition, similar to what is done in the code below. Use the code below in `simple_mux.v` to create a
+schematic in Vivado. 
 
 ```verilog
 module simple_mux(input [1:0] x, output reg [1:0] y);
@@ -151,10 +183,10 @@ through a series of tests.
 
 The following two code examples with corresponding test benches are other examples for you to explore. Capture the schematic and the timing diagram for each for your lab report.
 
-## Always_block_no_clock
----
+## Always block without a clock (always_block_sense)
 
 ### Code
+Put this module in `always_block_sense.v`.
 
 ```verilog
 module always_block_sense(
@@ -183,11 +215,12 @@ endmodule
 
 ```
 ### TestBench
-Create a new file using the testbench below to simulate the verilog code above.
+Create a new simulation source `always_block_sense_tb.v` using the testbench below to simulate the verilog code above.
 
 ```verilog
+`timescale 1 ns/ 1 ns
 
-module always_no_clock;
+module always_block_sense_tb;
 
 
     reg a;
@@ -221,8 +254,7 @@ module always_no_clock;
                        
             a = 0;
             #time_step;
-           
-           
+            $finish();
         end
     
 endmodule
@@ -230,12 +262,11 @@ endmodule
 ```
 
 
-----
-
-## Always_block_clock
-Use the verilog code and the associated testbench below to create a schematic and timing diagram using a clock and an always block. Note the differences between the two schematics with and without a clock.
+## Always block with a clock (always_block)
+Use the verilog code and the associated testbench below to create a schematic and timing diagram using a clock and an always block. In your write-up, briefly describe the difference between the two schematics with and without a clock.
 
 ### Code
+Put this module in `always_block.v`.
 
 ```verilog
 module always_block(
@@ -265,9 +296,12 @@ endmodule
 ```
 
 ### TestBench
+Create a new simulation source `always_block_tb.v` using the testbench below.
 
 ```verilog
-module always_clock;
+`timescale 1 ns/ 1 ns
+
+module always_block_tb;
 
     reg a, clock;
     wire b_out, c_out, d_out;
@@ -308,10 +342,7 @@ module always_clock;
             clock = 1;
             a = 1;
             #time_step;
-                       
-                       
-           
-           
+            $finish();
         end
     
     
