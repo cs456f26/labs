@@ -29,7 +29,7 @@ Note that a netname is a wire or connection between parts in a circuit.
 
 ### assign =
 `assign =` is used outside of an always @ or initial block to create a `continuous assignment` of the right hand
-side of the equals symbol to the left hand side of the equals symbol. The left hand side must be a reg or a wire net
+side of the equals symbol to the left hand side of the equals symbol. The left hand side must be a wire net (not a reg)
 and the right hand side must be an expression in verilog that can be synthesized (i.e. it can be implemented as a
 circuit).
 Continuous assignment is used to specify combinational circuits where the right hand side is continuously assigned or
@@ -125,7 +125,7 @@ condition, similar to what is done in the code below. Use the code below to crea
 Vivado. 
 
 ```verilog
-module simple_mux(input [1:0] x, output [1:0] reg y);
+module simple_mux(input [1:0] x, output reg [1:0] y);
     always @(*) begin
         if (x == 2'b10) begin
             y = 2'd3;
@@ -193,7 +193,7 @@ module always_no_clock;
     
        
     localparam time_step = 5;
-    always_not_block_sense always_not_block_sense_tb(.a_in(a),  .b_out(b_out), .c_out(c_out), .d_out(d_out));
+    always_block_sense always_block_sense_tb(.a_in(a),  .b_out(b_out), .c_out(c_out), .d_out(d_out));
     
     initial
         begin
