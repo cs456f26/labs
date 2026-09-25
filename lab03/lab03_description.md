@@ -94,11 +94,7 @@ We will generally just use 1 ns for both.
 
 ### Circuit Under Test
 Note the name of the testbench module is the name of the CUT (Circuit Under Test) followed by _tb, so the testbench for
-`mux2_1` is named `mux2_1_tb`. This is not required, but is convention and highly recommended. The instance of the circuit
-under test inside the testbench is conventionally named `dut` ("device under test"); do not reuse the testbench module's own
-name for the instance, as that makes the simulation hierarchy confusing to read. Often all signals in the testbench are also
-followed by _tb, but is omitted here for simplicity. Once the timescale is set the command `#`number can be used to have the
-simulation delay changes for number time units.
+`mux2_1` is named `mux2_1_tb`. This is not required, but is convention and highly recommended. 
 ### Registers
 `reg d0;` or "register d0" becomes a variable we can set to hold a signal. Registers are needed for inputs into the
 instantiation of a module being tested.
@@ -107,7 +103,7 @@ instantiation of a module being tested.
 ### Constants
 `localparam` is used to define a constant name for more readable and maintainable code. Now when we delay the simulation for a certain number of time units, and want to change it later, we only have to change it in one place.
 ### Instantiating the circuit under test
-`mux2_1 dut(d0, d1, s, out);` instantiates a mux2_1 module "type" that is named dut much like in Java you 
+`mux2_1 mux2_1_tb(d0, d1, s, out);` instantiates a mux2_1 module "type" that is named mux2_1_tb much like in Java you 
 instantiate an object. In this case instead of passing parameter values to a constructor, you are connecting signals in the 
 test module to the inputs and outputs of the circuit under test. The signals are matched to the ports *by position*: the
 first signal listed connects to the first port in your `mux2_1` header, the second to the second, and so on. This is why
@@ -129,7 +125,7 @@ module mux2_1_tb;
           
     localparam time_step = 5;
 
-    mux2_1 dut(d0, d1, s, out);
+    mux2_1 mux2_1_tb(d0, d1, s, out);
     
     initial
         begin   
@@ -208,7 +204,7 @@ module full_adder_tb;
           
     localparam time_step = 5;
 
-    full_adder dut(a, b, c_in, sum, c_out);
+    full_adder full_adder_tb(a, b, c_in, sum, c_out);
     
     initial
         begin   
@@ -265,7 +261,7 @@ module lab03_muxadd_top_tb;
           
     localparam time_step = 5;
 
-    lab03_muxadd_top dut(b, s0, leds);
+    lab03_muxadd_top lab03_muxadd_top_tb(b, s0, leds);
     
     initial
         begin
