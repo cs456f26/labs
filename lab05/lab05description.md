@@ -19,7 +19,7 @@ More specifically:
 
 ## Block diagram of desired circuit
 
-Use the name `lab06_upcounter` for this project.
+Use the name `lab05_upcounter` for this project.
 
 ![upcounter](upcounter4bit_ld_rst.png)
 
