@@ -1,9 +1,9 @@
 # Lab04 - Circuits with Behavioral Verilog (lab04_behavioral)
-At this point, we have focussed solely on combinational circuits and using structural verilog to create designs.
+At this point, we have focused solely on combinational circuits and using structural Verilog to create designs.
 The goal was to give you a strong foundation in circuit design so that you can understand what the more powerful
-behavioral descriptions will do. The ALU project is still combinational logic (there is no clock or feedback loop). 
-This lab explains when to use different versions of continuous assignment and demonstrates how using behavioral 
-verilog a designer can inadvertently create latches changing the intended design to something completely different.
+behavioral descriptions will do. This lab explains when to use different versions of assignment and demonstrates
+how, using behavioral Verilog, a designer can inadvertently create latches, changing the intended design to something
+completely different.
 
 You will not need the board today.
 
@@ -12,21 +12,21 @@ Important Notes:
 2. First thing add your name, date, assignment number etc. in the comment block at the beginning.
    This is the first thing that makes it clear it is your code. Also helps with grading.
 3. Take screenshots as you go and save them to a properly labeled folder.
-4. It may be easier to turn in the verilog as a screen capture also to maintain the legibility and formatting.
+4. It may be easier to turn in the Verilog as a screen capture also to maintain the legibility and formatting.
 5. This lab does not use the board, so you do not need a constraints file.
 
 # Submission Details
-Today's lab will be a pdf report submitted to Canvas with the following schematics and related timing diagrams as
+Today's lab will be a PDF report submitted to Canvas with the following schematics and related timing diagrams as
 well as answers to the questions indicated, with appropriate formatting as in past labs (names, assignment, section
 titles etc.).
 
 Today's lab will be graded as follows:
-1. (2 pts) Schematic and timing diagram for `nonblocking` in Running an experiment.
-2. (2 pts) Schematic and timing diagram for `blocking` in Running an experiment.
+1. (2 pts) Schematic and timing diagram for `nonblocking` in `Running an experiment`.
+2. (2 pts) Schematic and timing diagram for `blocking` in `Running an experiment`.
 3. (1 pt) `blocking.v` and `blocking_tb.v`.
 4. (1.5 pts) Answer the question: What is the difference between the two schematics for blocking and non-blocking?
 5. (1 pt) `simple_mux` schematic with the latch and without it.
-6. (1.5 pts) Answer the question: What did you do to remove the latch in Multiplexors with if-else?
+6. (1.5 pts) Answer the question: What did you do to remove the latch in `Multiplexors with if-else`?
 7. (1 pt) Schematics and timing diagrams for `always_block_sense` and `always_block`, and a sentence on the
    difference between the two schematics.
 
@@ -59,29 +59,29 @@ Note that a netname is a wire or connection between parts in a circuit.
 3. `<=` usually used within an always @ block
 
 ### assign =
-`assign =` is used outside of an always @ or initial block to create a `continuous assignment` of the right hand
-side of the equals symbol to the left hand side of the equals symbol. The left hand side must be a wire net (not a reg)
-and the right hand side must be an expression in verilog that can be synthesized (i.e. it can be implemented as a
+`assign =` is used outside of an always @ or initial block to create a `continuous assignment` of the right-hand
+side of the equals symbol to the left-hand side of the equals symbol. The left-hand side must be a wire net (not a reg)
+and the right-hand side must be an expression in Verilog that can be synthesized (i.e. it can be implemented as a
 circuit).
-Continuous assignment is used to specify combinational circuits where the right hand side is continuously assigned or
-connected to the left hand side anytime there is a change in any signal on the right hand side.
+Continuous assignment is used to specify combinational circuits where the right-hand side is continuously assigned or
+connected to the left-hand side anytime there is a change in any signal on the right-hand side.
 
 ### = within an always or initial block
 `=` alone must be within either an always @ block/procedure or within an initial block. In this class initial blocks
-are used pretty much exclusively in a test bench. `=` is known as a `blocking` assignment. It means that the assignments
+are used pretty much exclusively in a testbench. `=` is known as a `blocking` assignment. It means that the assignments
 will happen sequentially within a block. `=` within an always block typically specifies a combinational circuit, and
 in that case the sensitivity list must include all input signals. Best practice is to use `*` for the sensitivity list. 
 `=` used within an initial block in a testbench is forcing a signal value for a period of time until it is 
 specifically changed by another `=` assignment.
 
-### <= with an always block
+### <= within an always block
 `<=` within an always block is a `non-blocking` assignment. It is used to specify a sequential circuit and the 
-sensitivity list should designate an edge of the clock. With non-blocking assignment all of the right hand sides
-of the assignment statements are evaluated first, and only then are the left hand sides updated, all together at the
+sensitivity list should designate an edge of the clock. With non-blocking assignment all of the right-hand sides
+of the assignment statements are evaluated first, and only then are the left-hand sides updated, all together at the
 end of the time step. This is why the assignments behave as if they happen in parallel.
 
 ## Running an experiment
-Use the verilog code and testbench start below to run an experiment. First use the code below using a non-blocking assignment.
+Use the Verilog code and testbench starter below to run an experiment. First use the code below using a non-blocking assignment.
 View and capture the schematic and use the testbench to create a timing diagram to show the basic functionality.
 
 ```verilog
@@ -156,7 +156,7 @@ designs see the same inputs. Compare the schematic and the timing diagram with t
 that difference in your write-up for the lab briefly.
 
 ## Multiplexors with if-else
-Note that a multiplexor is a combinational circuit. To specify one in behavioral verilog the simplest way is to use an if-else statement or a case statement. It is easy to introduce a latch 
+Note that a multiplexor is a combinational circuit. To specify one in behavioral Verilog, the simplest way is to use an if-else statement or a case statement. It is easy to introduce a latch 
 unintentionally using these constructs by not assigning a value to a register for every possible 
 condition, similar to what is done in the code below. Use the code below in `simple_mux.v` to create a
 schematic in Vivado. 
@@ -176,16 +176,16 @@ Capture that schematic and then change the code to make sure all possibilities o
 in the always block by including a default value for y of zero. Capture this second schematic. Explain in the write-up what you did to remove the latch.
 
 Note that in addition to using case or if-else statements, a ternary operator also exists that
-can be used to specify a multiplexor. For example, here is an expression that implements min(a, 10) 
-`assign out = a > 10 ? 10 : a;` a one-bit multiplexor with inputs `a` and `b` and select `s` would
-be `assign out = s == 0 ? a : b;`
+can be used to specify a multiplexor. For example, here is an expression that implements min(a, 10):
+`assign out = a > 10 ? 10 : a;`. A one-bit multiplexor with inputs `a` and `b` and select `s` would
+be `assign out = s == 0 ? a : b;`.
 
-Finally, loops in verilog do not become loops in hardware. A `for` loop with fixed bounds can be synthesized, but
+Finally, loops in Verilog do not become loops in hardware. A `for` loop with fixed bounds can be synthesized, but
 the tool unrolls it into repeated copies of the hardware; `while` loops are generally not synthesizable. Loops are
 mostly used inside `generate` blocks to specify multiple instantiations of modules, or in a testbench to loop
 through a series of tests.
 
-The following two code examples with corresponding test benches are other examples for you to explore. Capture the schematic and the timing diagram for each for your lab report.
+The following two code examples with corresponding testbenches are other examples for you to explore. Capture the schematic and the timing diagram for each for your lab report.
 
 ## Always block without a clock (always_block_sense)
 
@@ -205,9 +205,9 @@ module always_block_sense(
     reg D;
     
     always @ (a_in) begin
-    B = a_in;
-    C = B;
-    D = C;
+        B = a_in;
+        C = B;
+        D = C;
     end
     
     
@@ -219,7 +219,7 @@ endmodule
 
 ```
 ### TestBench
-Create a new simulation source `always_block_sense_tb.v` using the testbench below to simulate the verilog code above.
+Create a new simulation source `always_block_sense_tb.v` using the testbench below to simulate the Verilog code above.
 
 ```verilog
 `timescale 1 ns/ 1 ns
@@ -267,7 +267,7 @@ endmodule
 
 
 ## Always block with a clock (always_block)
-Use the verilog code and the associated testbench below to create a schematic and timing diagram using a clock and an always block. In your write-up, briefly describe the difference between the two schematics with and without a clock.
+Use the Verilog code and the associated testbench below to create a schematic and timing diagram using a clock and an always block. In your write-up, briefly describe the difference between the two schematics with and without a clock.
 
 ### Code
 Put this module in `always_block.v`.
