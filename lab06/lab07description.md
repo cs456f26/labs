@@ -1,4 +1,4 @@
-# Lab06 Inferred Asynchronous ROMs
+# Lab07 Inferred Asynchronous ROMs
 An asynchronous memory is a memory block that isn’t governed by a clock. A ROM is a read-only memory. 
 The data can be accessed by supplying an address to the ROM; after some time, the ROM will output the 
 data stored at that address.  A memory block, in general, can contain as many addresses in which to 
