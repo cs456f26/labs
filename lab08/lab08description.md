@@ -1,4 +1,4 @@
-# Lab07 RAM
+# Lab08 RAM
 Similar to the asynchronous ROM that you designed earlier, RAM is a memory block accessed by
 supplying an address to the RAM. In the case of RAM though, the data can either be written or read.
 This data can be accessed by supplying an address to the RAM; after some time, the RAM will output the 
@@ -24,7 +24,7 @@ Submit a pdf with the following:
 
 ## A Data Memory Circuit Design
 
-![DataMemory](../lab07/DataMemory.png)
+![DataMemory](../lab08/DataMemory.png)
 
 ## A Data Memory Verilog Module
 Note that a RAM is most easily organized as a two-dimensional net to make indexing easier. 
