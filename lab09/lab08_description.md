@@ -1,4 +1,4 @@
-# Lab08 RISC-V Control
+# Lab09 RISC-V Control
 Today you will create verilog code and a testbench for the RISC-V control lines in the single-cycle processor.
 Though the tables are given here for you, you will also want to understand why the control lines have the
 values they do for each of the specific opcodes. You will need to design the control circuit in one verilog
@@ -24,9 +24,9 @@ See if you can correlate the contents of the figure (zyBook Figure 8.4.10) with 
 and a lw instruction, making sure the settings of the control lines make sense to you.
 
 <!--![ControlBlock](../lab09/controlblockdiagram.png) -->
-![DataPath](../lab08/zyBookFig8-4-10DataPath.png)
+![DataPath](../lab09/zyBookFig8-4-10DataPath.png)
 
-![SCControlLinesTable](../lab08/zyBookFig8-4-11ControlLinesTable.png)
+![SCControlLinesTable](../lab09/zyBookFig8-4-11ControlLinesTable.png)
 
 ## Considering how to include a nop instruction
 For your design of the single-cycle CPU, the addition of a nop instruction and a halt instruction
@@ -36,7 +36,7 @@ It has the description of no operation R[0] = R[0] and indicates it uses addi.
 Q1: What will the specific instruction that implements a nop be? Explain why and if this
 would require an additional case in the table above as well as in the more detailed table below.
 
-![ControlFunction](../lab08/zyBook8-4-14ControlFunction.png)
+![ControlFunction](../lab09/zyBook8-4-14ControlFunction.png)
 
 ## Write a Verilog module
 Write a Verilog module called `riscv_cntrl` to implement the table above with the addition of
