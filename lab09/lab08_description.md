@@ -6,8 +6,8 @@ module using behaviorial verilog, capture the schematic (there should be no regi
 write a testbench to determine if the circuit is correct.
 
 Note that the circuit shown below is the same as the overall control in the single-cycle processor, and so
-will be of use in a future project though NOT the ALU. This should give you some insight into how to design
-the ALU control though.
+will be of use in a future project though NOT the ALU. This should give you some additional insight into how to design
+the complete ALU control though.
 
 ## Submission
 Submit a pdf with the following: 
@@ -30,7 +30,7 @@ and a lw instruction, making sure the settings of the control lines make sense t
 
 ## Considering how to include a nop instruction
 For your design of the single-cycle CPU, the addition of a nop instruction and a halt instruction
-will be useful. Note that on the back of your greensheet there is a psuedo-instruction for a nop.
+will be useful. Note that on the back of your greensheet there is a pseudo-instruction for a nop.
 It has the description of no operation R[0] = R[0] and indicates it uses addi. 
 
 Q1: What will the specific instruction that implements a nop be? Explain why and if this
